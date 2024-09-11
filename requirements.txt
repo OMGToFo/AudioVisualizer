@@ -1,0 +1,10 @@
+streamlit
+numpy
+matplotlib
+pyaudio
+
+
+#streamlit==1.24.0 Replace with the latest stable version if necessary
+#numpy==1.25.2     Replace with the latest stable version if necessary
+#matplotlib==3.7.2 Replace with the latest stable version if necessary
+#pyaudio==0.2.13   For capturing audio input
