@@ -48,7 +48,7 @@ def visualize_circular(audio_data, color, fig, ax):
     return fig
 
 # Streamlit app UI
-st.title("Sound Visualizer with WebRTC")
+st.title("Real-Time Music Visualizer with WebRTC")
 st.write("This app captures your browser's microphone input and generates real-time visual patterns.")
 
 # Sidebar for user input
@@ -61,7 +61,7 @@ webrtc_ctx = webrtc_streamer(
     key="audio-stream",
     mode=WebRtcMode.SENDRECV,
     audio_receiver_size=1024,
-    video_transformer_factory=AudioProcessor,
+    audio_processor_factory=AudioProcessor,  # Replacing deprecated argument
     media_stream_constraints={"audio": True, "video": False},
 )
 
@@ -70,7 +70,7 @@ fig, ax = plt.subplots()
 
 # If audio is being processed
 if webrtc_ctx.audio_receiver:
-    processor = webrtc_ctx.audio_transformer
+    processor = webrtc_ctx.audio_processor
     placeholder = st.empty()
     
     if processor and processor.data is not None:
@@ -86,3 +86,5 @@ if webrtc_ctx.audio_receiver:
 
         # Display the plot in Streamlit
         placeholder.pyplot(fig)
+    else:
+        st.write("Waiting for audio input...")
