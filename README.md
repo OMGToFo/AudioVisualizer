@@ -8,3 +8,4 @@ The first idea was to use the pyaudio library to capture sound and matplotlib or
 This worked fine on the computer locally, but not deployed on streamlit sharing.
 
 The second try uses Streamlit WebRTC which should be able to run on Streamlit Sharing...
+.. but it still does not work. So don't go to https://simpleaudiovisualizer.streamlit.app/
