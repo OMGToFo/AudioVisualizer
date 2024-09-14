@@ -72,19 +72,23 @@ fig, ax = plt.subplots()
 if webrtc_ctx.audio_receiver:
     processor = webrtc_ctx.audio_processor
     placeholder = st.empty()
-    
-    if processor and processor.data is not None:
-        audio_data = processor.data
 
-        # Select the visualization pattern
-        if pattern == "Waveform":
-            fig = visualize_waveform(audio_data, default_color, fig, ax)
-        elif pattern == "Bar Pattern":
-            fig = visualize_bars(audio_data, default_color, fig, ax)
-        elif pattern == "Circular":
-            fig = visualize_circular(audio_data, default_color, fig, ax)
-
-        # Display the plot in Streamlit
-        placeholder.pyplot(fig)
+    # Check if processor and data are available
+    if processor is None:
+        st.error("Audio processor not initialized. Please refresh and try again.")
     else:
-        st.write("Waiting for audio input...")
+        if processor.data is None:
+            st.write("Waiting for audio input...")
+        else:
+            audio_data = processor.data
+
+            # Select the visualization pattern
+            if pattern == "Waveform":
+                fig = visualize_waveform(audio_data, default_color, fig, ax)
+            elif pattern == "Bar Pattern":
+                fig = visualize_bars(audio_data, default_color, fig, ax)
+            elif pattern == "Circular":
+                fig = visualize_circular(audio_data, default_color, fig, ax)
+
+            # Display the plot in Streamlit
+            placeholder.pyplot(fig)
